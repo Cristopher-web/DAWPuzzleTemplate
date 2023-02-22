@@ -55,8 +55,8 @@ public class Shuttle {
         1805,
         61,
         41,
-        (this.Center.getX() - 60 / 2) * Game.SCALE,
-        (this.Center.getY() - 40 / 2) * Game.SCALE,
+        (this.center.getX() - 60 / 2) * Game.SCALE,
+        (this.center.getY() - 40 / 2) * Game.SCALE,
         61 * Game.SCALE,
         41 * Game.SCALE);
     }
