@@ -22,7 +22,7 @@ public class Shuttle {
    private boolean debug;
 
    
-    public Shuttle(Point2D Center) {
+    public Shuttle(Point2D center) {
         this.center = center;
         this.actual = new Bubble();
         this.angle = 0.0f;
