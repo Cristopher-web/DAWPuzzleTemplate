@@ -13,30 +13,26 @@ import javafx.scene.canvas.GraphicsContext;
  */
 public class Shuttle {
    private float angle;
-   private Bubble Actual;
-   private Bubble Siguiente;
-   private Float Incr;
-   private Point2D Center;
+   private Bubble actual;
+   private Bubble siguiente;
+   private Float Incr=180f/128f;
+   private Point2D center;
    private static final float MIN_ANGLE=0f;
    private static final float MAX_ANGLE=180.0f;
    private boolean debug;
 
-    public Shuttle(){
-        this.angle = angle;
-        this.Actual = Actual;
-        this.Siguiente = Siguiente;
-        this.Incr = Incr;
-        this.Center = Center;
-        this.debug = debug;
-    }
+   
     public Shuttle(Point2D Center) {
-        this.Center = Center;
+        this.center = center;
+        this.actual = new Bubble();
+        this.angle = 0.0f;
+        this.siguiente = new Bubble();
     }
       /**
      * @return the Actual
      */
     public Bubble getActual() {
-        return Actual;
+        return actual;
     }
     /**
      * @param debug the debug to set
@@ -45,24 +41,40 @@ public class Shuttle {
         this.debug = debug;
     }
     private Bubble generateBall(){
-        this.Actual.init(Center, MIN_ANGLE);
-        return this.Actual;
+        Bubble temp;
+        temp = new Bubble();
+        temp.setBalltype(BubbleType.values()[ (int)(Math.random()*BubbleType.values().length)]);
+       return temp;
+    }
+    public void shoot(){
+        
     }
     public void paint(GraphicsContext gc){
         Resources r = Resources.getInstance();
-        gc.drawImage(r.getImage("ruleta"),
-        
+        gc.drawImage(r.getImage("spriters"), 1,
+        1805,
+        61,
+        41,
+        (this.Center.getX() - 60 / 2) * Game.SCALE,
+        (this.Center.getY() - 40 / 2) * Game.SCALE,
+        61 * Game.SCALE,
+        41 * Game.SCALE);
     }
     public void moveRight(){
-        
-    }
-    private void updateAngle(){
-        
+        this.angle-=this.Incr;
+        if(this.angle>Shuttle.MAX_ANGLE){
+            this.angle=Shuttle.MAX_ANGLE;
+        }
     }
     public void moveLeft(){
-        
+             this.angle+=this.Incr;
+        if(this.angle>Shuttle.MIN_ANGLE){
+            this.angle=Shuttle.MIN_ANGLE;
+        }
     }
-  
+    private void updateAngle(){
+     
+    }
     public boolean isDebug(){
         return this.debug;
     }

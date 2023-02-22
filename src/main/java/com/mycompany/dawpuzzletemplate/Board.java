@@ -30,7 +30,7 @@ public class Board implements IKeyListener {
     private Bubble ball;
     private boolean debug;
     private boolean left_press, right_press;
-
+    private Shuttle shuttle;
     /**
      * constructor
      *
@@ -42,7 +42,7 @@ public class Board implements IKeyListener {
         this.original_size = original;
         this.right_press = false;
         this.left_press = false;
-
+        this.shuttle = new Shuttle(new Point2D(this.original_size.getWidth() / 2,(this.original_size.getHeight()-21)));
         this.debug = false;
 
     }
@@ -122,15 +122,16 @@ public class Board implements IKeyListener {
         if (this.ball != null && this.ball.getBalltype() != null) {
         this.ball.paint(gc);
         }
+        if(this.shuttle != null){
+            this.shuttle.paint(gc);
+        }
     }
 
     private void process_input() {
         if (this.left_press) {
-
+               this.shuttle.moveLeft();
         } else if (this.right_press) {
-
-        } else {
-
+                this.shuttle.moveRight();
         }
     }
 
