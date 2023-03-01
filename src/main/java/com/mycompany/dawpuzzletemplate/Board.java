@@ -22,15 +22,15 @@ import javafx.scene.paint.Color;
  * @see Bubble Level Shttle BallGrid
  */
 public class Board implements IKeyListener {
-
+ private Shuttle shuttle;
     private Rectangle2D game_zone;
     private GraphicsContext gc;
     private GraphicsContext bggc;
     private Dimension2D original_size;
-    private Bubble ball;
+    private Bubble ball;/**/
     private boolean debug;
     private boolean left_press, right_press;
-    private Shuttle shuttle;
+
     /**
      * constructor
      *
@@ -38,11 +38,12 @@ public class Board implements IKeyListener {
      */
     public Board(Dimension2D original) {
         this.gc = null;
+
         this.game_zone = new Rectangle2D(95, 23, 128, 200);
         this.original_size = original;
-        this.shuttle = new Shuttle(new Point2D(this.original_size.getWidth() / 2,(this.original_size.getHeight()-21)));
         this.right_press = false;
         this.left_press = false;
+        this.shuttle= new Shuttle(new Point2D(this.original_size.getWidth()/2, this.original_size.getHeight()-21));
         this.debug = false;
 
     }
@@ -87,6 +88,7 @@ public class Board implements IKeyListener {
      */
     public void setDebug(boolean debug) {
         this.debug = debug;
+        this.shuttle.setDebug(debug);
 
     }
 
@@ -114,24 +116,26 @@ public class Board implements IKeyListener {
     private void update() {
         //actualizar el juego
         if (this.ball != null && this.ball.getBalltype() != null) {
-        this.ball.move(this.game_zone);
+            this.ball.move(this.game_zone);
         }
     }
 
     private void render() {
         if (this.ball != null && this.ball.getBalltype() != null) {
-        this.ball.paint(gc);
+            this.ball.paint(gc);
         }
-        if(this.shuttle != null){
+        if (this.shuttle != null){
             this.shuttle.paint(gc);
         }
     }
 
     private void process_input() {
         if (this.left_press) {
-               this.shuttle.moveLeft();
+            this.shuttle.moveLeft();
         } else if (this.right_press) {
-                this.shuttle.moveRight();
+            this.shuttle.moveRight();
+        } else {
+
         }
     }
 
@@ -187,11 +191,7 @@ public class Board implements IKeyListener {
                 this.paintBackground();
                 break;
             case SPACE:
-                this.ball=new Bubble();
-                //se coloca el tipo de forma aleatorioa
-                this.ball.setBalltype(BubbleType.values()[ (int)(Math.random()*BubbleType.values().length)]);
-                //se pone la posición (centro) y ángulo aleatorio
-                this.ball.init(new Point2D((this.game_zone.getMaxX() - this.game_zone.getWidth() / 2),(this.game_zone.getMaxY() - 18)), (float) (Math.random()*360));
+                this.ball= shuttle.Shoot();
                 this.ball.play();
                 break;
             case P:
