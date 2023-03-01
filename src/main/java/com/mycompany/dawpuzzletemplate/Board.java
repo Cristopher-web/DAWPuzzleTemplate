@@ -30,6 +30,7 @@ public class Board implements IKeyListener {
     private Bubble ball;/**/
     private boolean debug;
     private boolean left_press, right_press;
+    private Ballgrid grid;
 
     /**
      * constructor
@@ -45,7 +46,7 @@ public class Board implements IKeyListener {
         this.left_press = false;
         this.shuttle= new Shuttle(new Point2D(this.original_size.getWidth()/2, this.original_size.getHeight()-21));
         this.debug = false;
-
+        this.grid = new Ballgrid((int) this.game_zone.getMaxX(), (int) this.game_zone.getMaxY());
     }
 
     /**
@@ -117,6 +118,9 @@ public class Board implements IKeyListener {
         //actualizar el juego
         if (this.ball != null && this.ball.getBalltype() != null) {
             this.ball.move(this.game_zone);
+        }
+        if(this.ball != null && this.grid != null){
+            this.grid.collision(ball);
         }
     }
 
