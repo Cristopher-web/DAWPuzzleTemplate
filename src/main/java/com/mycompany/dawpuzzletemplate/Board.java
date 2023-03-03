@@ -27,7 +27,7 @@ public class Board implements IKeyListener {
     private GraphicsContext gc;
     private GraphicsContext bggc;
     private Dimension2D original_size;
-    private Bubble ball;/**/
+    private Bubble ball;
     private boolean debug;
     private boolean left_press, right_press;
     private Ballgrid grid;
@@ -46,7 +46,7 @@ public class Board implements IKeyListener {
         this.left_press = false;
         this.shuttle= new Shuttle(new Point2D(this.original_size.getWidth()/2, this.original_size.getHeight()-21));
         this.debug = false;
-        this.grid = new Ballgrid((int) this.game_zone.getMaxX(), (int) this.game_zone.getMaxY());
+        this.grid = new Ballgrid((int) this.game_zone.getMinX(), (int) this.game_zone.getMinY());
     }
 
     /**
@@ -120,7 +120,7 @@ public class Board implements IKeyListener {
             this.ball.move(this.game_zone);
         }
         if(this.ball != null && this.grid != null){
-            this.grid.collision(ball);
+            this.grid.colision(ball);
         }
     }
 
@@ -128,10 +128,9 @@ public class Board implements IKeyListener {
         if (this.ball != null && this.ball.getBalltype() != null) {
             this.ball.paint(gc);
         }
-        if (this.shuttle != null){
-            this.shuttle.paint(gc);
+        this.shuttle.paint(gc);
+        this.grid.paint(gc);
         }
-    }
 
     private void process_input() {
         if (this.left_press) {
@@ -195,7 +194,7 @@ public class Board implements IKeyListener {
                 this.paintBackground();
                 break;
             case SPACE:
-                this.ball= shuttle.Shoot();
+                this.ball= shuttle.shoot();
                 this.ball.play();
                 break;
             case P:

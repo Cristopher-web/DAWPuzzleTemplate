@@ -6,6 +6,7 @@ package com.mycompany.dawpuzzletemplate;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 /**
@@ -13,7 +14,7 @@ import javafx.scene.paint.Color;
  * @author DAWTarde
  */
 public class Shuttle {
-    private int posX = 1, posY = 1805;
+     private int posX = 1, posY = 1805;
     private int posXF = 0, posYF = 1545;
     private float angle;
     private Bubble actual;
@@ -136,12 +137,17 @@ public class Shuttle {
 
         return p;
     }
-
-    public Bubble Shoot() {
+    //Disparo de la bola
+    public Bubble shoot() {
+        //Se crea una burbuja temporal y se le asigna la actual.
         Bubble tempo = this.actual;
+        //Se le asigna una posicion a la bola en este caso la del centro para que la bola salga de ahi
         tempo.setPosicion(center);
+        //Angulo en el que se dispara la bola para que no vaya hacia abajo
         tempo.setAngulo(360 - this.angle);
+        //se hace el cambio de la bola siguiente a la actual
         this.siguiente = this.actual;
+        //se genera otra bola y se cambia por la actual.
         this.actual = this.generateBall();
 
         return tempo;
