@@ -71,9 +71,16 @@ public class Ballgrid {
             //Asigna la posicion de la bola en la primera fila del grid o vector de bolas.
             b.setPosicion(new Point2D(this.startx+Bubble.WIDTH*c+Bubble.WIDTH/2,this.starty+Bubble.HEIGHT*f+Bubble.WIDTH/2));
             return true;
-        }else
-            return false;
+        }else{
+            boolean collision = false;
+            for(int i=0; i<this.bubblegrid.length && !collision;i++){
+                for(int j=0; j<this.bubblegrid[i].length && !collision;j++){
+                           
+        }
     }
+     return false;
+    }
+}
    public void paint(GraphicsContext gc){
         for(int i=0; i<this.bubblegrid.length;i++){
             for(int j=0; j<this.bubblegrid[i].length;j++){
@@ -83,4 +90,5 @@ public class Ballgrid {
             }
         }
     }
+   
 }
